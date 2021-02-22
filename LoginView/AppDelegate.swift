@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame:UIScreen.main.bounds)
         let rootViewController = UINavigationController(rootViewController: RootViewController())
+      //  rootViewController.navigationItem.title = "LoginView"
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
         

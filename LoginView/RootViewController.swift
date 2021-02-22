@@ -80,15 +80,17 @@ class RootViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.backgroundColor = UIColor.systemBackground
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(loginButtonClick), for:.touchUpInside)
         return button
     }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationItem.title = "Login View"
         view.backgroundColor = UIColor.systemBackground
         
+        self.hideKeyboardWhenTapped()
         self.addSubView()
         self.layOut()
         self.configueColor()
@@ -106,10 +108,36 @@ class RootViewController: UIViewController {
             self.loginButton.backgroundColor = .black
         }
     }
+    //MARK: Seletor
+    @objc func loginButtonClick(){
+        self.navigationController?.pushViewController(MainViewController(), animated: true)
+    }
+   /*
+    @objc func keyboardWillShow(notification:NSNotification){
+        print("keyboardWillShow")
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    @objc func keyboardWillHide(notification:NSNotification){
+        print("keyboardWillHide")
+        if self.view.frame.origin.y != 0{
+            self.view.frame.origin.y = 0
+        }
+    }
     
+    func moveViewWithKeyboard(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+ */
 }
 
 extension RootViewController{
+    //MARK: NSLayOut
     func layOut(){
         
         //MARK: dataBaseLable LayOut
@@ -139,6 +167,7 @@ extension RootViewController{
             self.passWordTextFieldView.widthAnchor.constraint(equalToConstant: self.view.frame.width - 80),
             self.passWordTextFieldView.heightAnchor.constraint(equalToConstant: 40)
         ])
+        
         //MARK: loginButton LayOut
         NSLayoutConstraint.activate([
             self.loginButton.topAnchor.constraint(equalTo: self.passWordTextFieldView.bottomAnchor, constant: 20),
@@ -147,6 +176,7 @@ extension RootViewController{
             self.loginButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
+    //MAKR : AddSubView
     func addSubView(){
         self.view.addSubview(dataBaseLable)
         self.view.addSubview(loginLabel)
@@ -154,4 +184,5 @@ extension RootViewController{
         self.view.addSubview(passWordTextFieldView)
         self.view.addSubview(loginButton)
     }
+    
 }
